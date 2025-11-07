@@ -4,11 +4,8 @@ import ImageCarousel from '@/components/ImageCarousel';
 import Title from '@/components/Title';
 import { fetchEvents, type Event } from '@/data/events';
 import { CAROUSEL_IMAGES } from '@/data/images';
-import { SPONSOR_TYPES, fetchSponsors } from '@/data/sponsors';
-import { payloadURL } from '@/lib/payload';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Fragment } from 'react';
 import UpcomingEventCard from './UpcomingEventCard';
 
 export default async function HomePage() {
@@ -19,7 +16,6 @@ export default async function HomePage() {
     );
     const UPCOMING_EVENTS = EVENTS.filter((event) => event.date.timestamp >= CURRENT_DATE);
 
-    const sponsors = await fetchSponsors();
     return (
         <main className="relative">
             {/* Hero Section */}
@@ -37,9 +33,13 @@ export default async function HomePage() {
                         />
 
                         <div className="relative z-10">
-                            <h1 className="text-5xl text-red-500 lg:text-7xl 2xl:text-8xl">LEARN,</h1>
+                            <h1 className="text-5xl text-red-500 lg:text-7xl 2xl:text-8xl">
+                                LEARN,
+                            </h1>
                             <div className="h-2" />
-                            <h1 className="text-5xl text-[#FFD700] lg:text-7xl 2xl:text-8xl">SOCIALISE,</h1>
+                            <h1 className="text-5xl text-[#FFD700] lg:text-7xl 2xl:text-8xl">
+                                SOCIALISE,
+                            </h1>
                             <div className="h-2" />
 
                             <Title colour="yellow" font="font-black">
@@ -192,7 +192,8 @@ export default async function HomePage() {
                                             social club.
                                             <span className="absolute left-0 top-0 h-full w-full bg-yellow opacity-30"></span>
                                         </span>{' '}
-                                        Events such as meet & greets, games / movies , events , conferences etc.
+                                        Events such as meet & greets, games / movies , events ,
+                                        conferences etc.
                                     </p>
                                 </div>
                             </div>
@@ -234,54 +235,20 @@ export default async function HomePage() {
                     />
 
                     <div>
-                        <h3>Supported By </h3>
+                        <h3>Sponsor Showcase</h3>
                         <div className="flex flex-col smr:flex-row">
-                            <h3 className="mb-2 mr-2 md:mb-0">Industry&apos;s </h3>
+                            <h3 className="mb-2 mr-2 md:mb-0">Updates </h3>
                             <FancyRectangle colour="orange" offset="6" filled={false}>
                                 <div className="w-fit bg-orange px-2">
-                                    <h2>Greatest</h2>
+                                    <h2>Coming Soon</h2>
                                 </div>
                             </FancyRectangle>
                         </div>
                     </div>
                 </div>
-                <div className="relative z-10 mt-16 space-y-4">
-                    {SPONSOR_TYPES.map((type) => {
-                        // Filter sponsors for the given tier
-                        const filteredSponsors = sponsors.filter(
-                            (sponsor) => sponsor.type.toLowerCase() === type.toLowerCase()
-                        );
-                        if (filteredSponsors.length === 0) return null;
-                        return (
-                            <Fragment key={type}>
-                                <h3 className="text-center text-2xl font-black capitalize smr:text-left lg:text-3xl">
-                                    {type} Sponsors
-                                </h3>
-                                {/* // 0–300px -> flex; 301–479px -> grid 2-cols; 480px+ -> flex */}
-                                <div className="flex flex-wrap justify-center gap-6 pb-2 xs:grid xs:grid-cols-2 smr:flex smr:flex-wrap smr:justify-start">
-                                    {filteredSponsors.map(({ image, website, name }, i) => (
-                                        <a
-                                            href={website}
-                                            key={i}
-                                            className="block"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <FancyRectangle colour="white" offset="10">
-                                                <Image
-                                                    src={payloadURL + `${image}`}
-                                                    alt={`${name} Logo`}
-                                                    width={250}
-                                                    height={250}
-                                                    className="h-[150px] w-[150px] bg-white object-contain p-2 md:h-[250px] md:w-[250px]"
-                                                />
-                                            </FancyRectangle>
-                                        </a>
-                                    ))}
-                                </div>
-                            </Fragment>
-                        );
-                    })}
+                <div className="relative z-10 mt-8 max-w-3xl rounded-xl border-4 border-white bg-grey/70 p-6 text-lg text-white md:text-xl">
+                    We&apos;re finalising this year&apos;s sponsor lineup. Check back later for the
+                    organisations partnering with CODEC.
                 </div>
             </section>
 

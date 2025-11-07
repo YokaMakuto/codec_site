@@ -61,11 +61,10 @@ function Details() {
                     </li>
                 </ul>
                 <p>
-                    Come down to Our{' '}
-                    <span className="font-bold text-yellow">Discord Server</span> for some games!
+                    Come down to Our <span className="font-bold text-yellow">Discord Server</span>{' '}
+                    for some games!
                 </p>
-                <p className="font-bold">
-                </p>
+                <p className="font-bold"></p>
             </Paragraph>
         </FancyRectangle>
     );

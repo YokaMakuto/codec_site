@@ -2,6 +2,7 @@
 
 import Button from '@/components/Button';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import type { Photo } from './types';
@@ -24,7 +25,7 @@ export default function GalleryView({
     viewMode,
 }: GalleryViewProps) {
     const isDragging = useRef(false);
-    const [standardIndex, setStandardIndex] = useState(0);
+    const [standardIndex, setStandardIndex] = useState<number>(0);
     const thumbnailRefs = useRef<(HTMLImageElement | null)[]>([]);
 
     const handlePrev = () => {
@@ -66,11 +67,13 @@ export default function GalleryView({
 
                         <div className="flex w-full max-w-full items-center justify-center px-4">
                             <div className="relative aspect-square max-h-[70vh] w-full max-w-[80vw]">
-                                <img
+                                <Image
                                     src={photo.url}
-                                    alt={`Photo ${standardIndex + 1}`}
-                                    className="absolute inset-0 h-full w-full object-contain"
+                                    alt={`${photo.eventName} photo`}
+                                    fill
+                                    className="object-contain"
                                     draggable={false}
+                                    sizes="(max-width: 1024px) 80vw, 600px"
                                 />
                             </div>
                         </div>
@@ -82,11 +85,13 @@ export default function GalleryView({
 
                     <div className="flex w-full items-center justify-center lg:hidden">
                         <div className="relative aspect-square max-h-[60vh] w-full max-w-[90vw]">
-                            <img
+                            <Image
                                 src={photo.url}
-                                alt={`Photo ${standardIndex + 1}`}
-                                className="absolute inset-0 h-full w-full object-contain"
+                                alt={`${photo.eventName} photo`}
+                                fill
+                                className="object-contain"
                                 draggable={false}
+                                sizes="(max-width: 1024px) 90vw, 480px"
                             />
                         </div>
                     </div>
@@ -104,7 +109,7 @@ export default function GalleryView({
                 <div className="mt-4 w-full overflow-x-auto px-4 py-2">
                     <div className="flex flex-nowrap gap-2">
                         {photos.map((thumb, idx) => (
-                            <img
+                            <Image
                                 key={idx}
                                 ref={(el) => {
                                     thumbnailRefs.current[idx] = el;
@@ -116,7 +121,10 @@ export default function GalleryView({
                                         ? 'border-purple-500 opacity-100'
                                         : 'border-transparent opacity-70 hover:opacity-100'
                                 }`}
-                                alt={`Thumbnail ${idx + 1}`}
+                                alt={`${thumb.eventName} thumbnail ${idx + 1}`}
+                                width={96}
+                                height={64}
+                                draggable={false}
                             />
                         ))}
                     </div>
@@ -200,11 +208,14 @@ export default function GalleryView({
                         dragMomentum={false}
                         dragElastic={0.2}
                     >
-                        <img
+                        <Image
                             src={photo.url}
-                            className="h-full w-full object-cover"
+                            alt={`${photo.eventName} photo`}
+                            fill
+                            className="object-cover"
                             draggable={false}
                             loading="lazy"
+                            sizes="(max-width: 768px) 280px, 352px"
                         />
                     </motion.div>
                 );

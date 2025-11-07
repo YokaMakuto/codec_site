@@ -1,6 +1,3 @@
-import { env } from '@/env.mjs';
-import { fetcher } from '@/lib/fetcher';
-
 export type Gallery = {
     eventName: string;
     eventDate: { year: number; month: number; day: number };
@@ -11,83 +8,44 @@ export type Gallery = {
     }[];
 };
 
-// API response format from PayloadCMS
-export type PayloadGallery = {
-    id: string;
-    eventName: string;
-    eventDate: { year: number; month: number; day: number };
-    images?: {
-        id: string;
-        alt?: string;
-        filename: string;
-        mimeType: string;
-        filesize: number;
-        width: number;
-        height: number;
-        focalX?: number;
-        focalY?: number;
-        createdAt: string;
-        updatedAt: string;
-        url: string;
-        thumbnailURL?: string | null;
-    };
-};
+export const GALLERIES: Gallery[] = [
+    {
+        eventName: 'CODEC Open Day 2025',
+        eventDate: { year: 2025, month: 10, day: 27 },
+        images: [
+            {
+                url: '/images/events/2025/codec-open-day.png',
+                width: 1600,
+                height: 900,
+            },
+            {
+                url: '/images/home/industry-night-2025.webp',
+                width: 1600,
+                height: 900,
+            },
+            {
+                url: '/images/home/meet-and-greet-2025-1.webp',
+                width: 1600,
+                height: 900,
+            },
+        ],
+    },
+    {
+        eventName: 'Meet & Greet',
+        eventDate: { year: 2025, month: 3, day: 12 },
+        images: [
+            {
+                url: '/images/home/meet-and-greet-2025-2.webp',
+                width: 1600,
+                height: 900,
+            },
+            {
+                url: '/images/home/cocktail-night-2024.webp',
+                width: 1600,
+                height: 900,
+            },
+        ],
+    },
+];
 
-// Payload URL
-export const galleryURL = env.NEXT_PUBLIC_PAYLOAD_URI + '/api/gallery?limit=100';
-
-/*
-    Fetches galleries from Payload CMS and transforms them into the required format.
-*/
-export async function fetchGalleries(): Promise<Gallery[]> {
-    try {
-        // Fetching gallery data from payload with fetcher
-        const data = await fetcher.get.query([galleryURL, { cache: 'no-store', prefixUrl: '' }]);
-
-        const payloadData = data.docs;
-        const GALLERIES: Gallery[] = [];
-
-        // Process and parse galleries
-        for (const docNum in payloadData) {
-            const newGallery = parseGalleries(payloadData[docNum]);
-            GALLERIES.push(newGallery);
-        }
-
-        return GALLERIES;
-    } catch (error) {
-        console.error('Error fetching galleries:', error);
-        return [];
-    }
-}
-
-// Function to parse Payload data to Gallery type
-export const parseGalleries = (raw: PayloadGallery): Gallery => {
-    let eventDateObj = raw.eventDate;
-
-    if (typeof raw.eventDate === 'string') {
-        const date = new Date(raw.eventDate);
-        eventDateObj = {
-            year: date.getUTCFullYear(),
-            month: date.getUTCMonth() + 1,
-            day: date.getUTCDate(),
-        };
-    }
-
-    return {
-        eventName: raw.eventName,
-        eventDate: {
-            year: eventDateObj.year,
-            month: eventDateObj.month,
-            day: eventDateObj.day,
-        },
-        images: Array.isArray(raw.images)
-            ? raw.images
-                  .map((image) => ({
-                      url: `${env.NEXT_PUBLIC_PAYLOAD_URI}${image.url}`,
-                      width: image.width,
-                      height: image.height,
-                  }))
-                  .reverse()
-            : [],
-    };
-};
+export const getGalleries = (): Gallery[] => GALLERIES;

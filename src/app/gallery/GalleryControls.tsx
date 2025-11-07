@@ -1,6 +1,6 @@
 import Button from '@/components/Button';
 import Dropdown from '@/components/Dropdown';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 
 interface GalleryControlsProps {

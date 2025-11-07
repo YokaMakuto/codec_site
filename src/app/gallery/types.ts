@@ -4,4 +4,6 @@ export interface Photo {
     folder: string;
     eventDate: { year: number; month: number; day: number };
     eventName: string;
+    width: number;
+    height: number;
 }

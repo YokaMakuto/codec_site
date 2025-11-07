@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import LINKS from '@/constants/links';
 import Link from 'next/link';
@@ -33,7 +33,7 @@ export default function HeaderLinks({
     };
 
     return (
-    <nav className="flex items-center gap-4 text-black">
+        <nav className="flex items-center gap-4 text-black">
             {LINKS.map((link, i) =>
                 link.dropdown ? (
                     <DropdownMenu
@@ -60,7 +60,7 @@ export default function HeaderLinks({
                             if (someoneHovered) {
                                 return 'scale-95 text-sm text-[#5b667b]';
                             }
-                            return 'text-base text-black hover:text-[#1d2430] hover:scale-105';
+                            return 'text-base text-black hover:scale-105 hover:text-[#1d2430]';
                         })()}`}
                         onMouseEnter={handleEnter(link.title)}
                         onMouseLeave={handleLeave}

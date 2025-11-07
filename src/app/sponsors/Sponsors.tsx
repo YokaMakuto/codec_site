@@ -1,6 +1,4 @@
-import { SPONSOR_TYPES, fetchSponsors, type Sponsor, type SponsorType } from '@/data/sponsors';
-import { env } from '@/env.mjs';
-import type { GetServerSideProps } from 'next';
+import { SPONSOR_TYPES, type Sponsor, type SponsorType } from '@/data/sponsors';
 import Image from 'next/image';
 import { Fragment } from 'react';
 import FancyRectangle from '../../components/FancyRectangle';
@@ -47,7 +45,7 @@ function SponsorCard({ image, name, description, website, type, reverse }: Spons
                 className={`flex flex-col items-stretch gap-5 rounded-xl bg-white p-4 text-black md:p-6 ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'}`}
             >
                 <Image
-                    src={env.NEXT_PUBLIC_PAYLOAD_URI + image} // Change to get from Payload API
+                    src={image || '/images/logos/logo.svg'}
                     alt={`${name} logo`}
                     width={250}
                     height={250}
@@ -80,16 +78,6 @@ function SponsorCard({ image, name, description, website, type, reverse }: Spons
 interface SponsorsPageProps {
     sponsors: Sponsor[];
 }
-
-export const getServerSideProps: GetServerSideProps<SponsorsPageProps> = async () => {
-    try {
-        const sponsors = await fetchSponsors();
-        return { props: { sponsors } };
-    } catch (error) {
-        console.error('Error fetching sponsors:', error);
-        return { props: { sponsors: [] } }; // Always return an array
-    }
-};
 
 export default function Sponsors({ sponsors = [] }: SponsorsPageProps) {
     let count = 0;

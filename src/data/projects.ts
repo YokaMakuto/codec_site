@@ -1,6 +1,3 @@
-import { env } from '@/env.mjs';
-import { fetcher } from '@/lib/fetcher';
-
 export interface TechStack {
     tech_name: string;
     color: string;
@@ -15,36 +12,34 @@ export interface Project {
     techStacks: TechStack[];
     active: boolean;
 }
+export const PROJECTS: Project[] = [
+    {
+        title: 'Club Website Refresh',
+        description:
+            'The CODEC website you are browsing right now! Built as a modern, accessible Next.js application with a focus on performance and maintainability.',
+        image: '/images/opensource/opensource.png',
+        githubLink: 'https://github.com',
+        websiteLink: 'https://codec.club',
+        techStacks: [
+            { tech_name: 'Next.js', color: '#000000' },
+            { tech_name: 'TypeScript', color: '#2D79C7' },
+            { tech_name: 'Tailwind CSS', color: '#38BDF8' },
+        ],
+        active: true,
+    },
+    {
+        title: 'Event Toolkit',
+        description:
+            'A collection of reusable components and workflows that make running club events easier, from sign-up forms to automated reminder emails.',
+        image: '/images/home/meet-and-greet-2025-1.webp',
+        githubLink: 'https://github.com',
+        websiteLink: undefined,
+        techStacks: [
+            { tech_name: 'Node.js', color: '#6DA55F' },
+            { tech_name: 'PostgreSQL', color: '#336791' },
+        ],
+        active: false,
+    },
+];
 
-const projectURL = env.NEXT_PUBLIC_PAYLOAD_URI + '/api/projects?limit=20';
-
-/*
-    Fetches projects and techstack from Payload CMS and transforms them into the required format.
-*/
-export async function fetchProjectsData(): Promise<Project[]> {
-    try {
-        // Fetching project data from payload with fetcher
-        const data = await fetcher.get.query([projectURL, { cache: 'no-store', prefixUrl: '' }]);
-
-        // Process the data to match the Project interface
-        const projects: Project[] = data.docs
-            .map((project: any) => ({
-                title: project.title,
-                description: project.description,
-                image: project.image?.filename || '',
-                githubLink: project.githubLink || '',
-                websiteLink: project.websiteLink || null,
-                techStacks: (project.techStack || []).map((tech: any) => ({
-                    tech_name: tech['tech-name'],
-                    color: tech.color,
-                })),
-                active: project.isCurrent === 'true',
-            }))
-            .reverse();
-
-        return projects;
-    } catch (error) {
-        console.error('Error fetching projects:', error);
-        return [];
-    }
-}
+export const getProjects = (): Project[] => PROJECTS;

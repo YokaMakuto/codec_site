@@ -9,12 +9,12 @@ export const env = createEnv({
         SMTP_EMAIL_ADDRESS: z.string().min(1).email().optional(),
     },
     client: {
-        NEXT_PUBLIC_UMAMI_WEBSITE_ID: z.string().optional(),
-        NEXT_PUBLIC_PAYLOAD_URI: z.string().url(),
+        NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
+    NEXT_PUBLIC_UMAMI_WEBSITE_ID: z.string().optional(),
     },
     experimental__runtimeEnv: {
-        NEXT_PUBLIC_UMAMI_WEBSITE_ID: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID,
-        NEXT_PUBLIC_PAYLOAD_URI: process.env.NEXT_PUBLIC_PAYLOAD_URI,
+    NEXT_PUBLIC_UMAMI_WEBSITE_ID: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID,
     },
     skipValidation: process.env.SKIP_ENV_VALIDATION,
 });

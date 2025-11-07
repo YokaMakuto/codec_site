@@ -1,7 +1,6 @@
 'use client';
 
-import FancyRectangle from '@/components/FancyRectangle';
-import { fetchGalleries } from '@/data/gallery';
+import { GALLERIES } from '@/data/gallery';
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import GalleryControls from './GalleryControls';
 import GalleryOverview from './GalleryOverview';
@@ -30,49 +29,40 @@ export default function Gallery({ setCurrentTitle }: GalleryProps) {
         }
         return 'pile';
     });
-    const [loading, setLoading] = useState(true);
 
     const galleryRef = useRef<HTMLDivElement>(null);
     const animationInterval = useRef<NodeJS.Timeout | null>(null);
     const folderChangeInterval = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
-        async function loadGalleries() {
-            try {
-                const galleries = await fetchGalleries();
-                const allPhotos: Photo[] = [];
+        const galleries = GALLERIES;
+        const allPhotos: Photo[] = [];
 
-                for (const gallery of galleries) {
-                    const folderName = gallery.eventName.toLowerCase().replace(/\s+/g, '-');
-                    for (const image of gallery.images) {
-                        allPhotos.push({
-                            url: image.url,
-                            orientation: image.width >= image.height ? 'landscape' : 'portrait',
-                            folder: folderName,
-                            eventDate: gallery.eventDate,
-                            eventName: gallery.eventName,
-                        });
-                    }
-                }
-
-                const uniqueFolders = [...new Set(allPhotos.map((p) => p.folder))];
-
-                setPhotos(allPhotos);
-                setFolders(uniqueFolders);
-                setSelectedFolder(uniqueFolders[0]);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error loading galleries:', error);
-                setLoading(false);
+        for (const gallery of galleries) {
+            const folderName = gallery.eventName.toLowerCase().replace(/\s+/g, '-');
+            for (const image of gallery.images) {
+                allPhotos.push({
+                    url: image.url,
+                    orientation: image.width >= image.height ? 'landscape' : 'portrait',
+                    folder: folderName,
+                    eventDate: gallery.eventDate,
+                    eventName: gallery.eventName,
+                    width: image.width,
+                    height: image.height,
+                });
             }
         }
 
-        loadGalleries();
+        const uniqueFolders = [...new Set(allPhotos.map((p) => p.folder))];
+
+        setPhotos(allPhotos);
+        setFolders(uniqueFolders);
+        setSelectedFolder(uniqueFolders[0] ?? '');
     }, []);
 
     const galleriesByFolder = useMemo(() => {
         const grouped: { [folder: string]: Photo[] } = {};
-        photos.forEach((photo) => {
+        photos.forEach((photo: Photo) => {
             if (!grouped[photo.folder]) grouped[photo.folder] = [];
             grouped[photo.folder].push(photo);
         });
@@ -108,12 +98,12 @@ export default function Gallery({ setCurrentTitle }: GalleryProps) {
     }, [mode, selectedFolder, galleriesByFolder, numImages, photos.length, setCurrentTitle]);
 
     const shufflePhotos = () => {
-        const allShuffledPhotos = [...photos.filter((p) => p.folder === selectedFolder)]
+        const allShuffledPhotos = [...photos.filter((p: Photo) => p.folder === selectedFolder)]
             .sort(() => 0.5 - Math.random())
             .slice(0, numImages);
 
-        setPhotos((prevPhotos) => [
-            ...prevPhotos.filter((p) => p.folder !== selectedFolder),
+        setPhotos((prevPhotos: Photo[]) => [
+            ...prevPhotos.filter((p: Photo) => p.folder !== selectedFolder),
             ...allShuffledPhotos,
         ]);
 
@@ -148,7 +138,7 @@ export default function Gallery({ setCurrentTitle }: GalleryProps) {
     }, [handleOutsideClick]);
 
     const handleAnimateToggle = () => {
-        setAnimateToggle((prev) => !prev);
+        setAnimateToggle((prev: boolean) => !prev);
         if (!animateToggle) {
             animationInterval.current = setInterval(() => {
                 let randomIndex;
@@ -161,7 +151,7 @@ export default function Gallery({ setCurrentTitle }: GalleryProps) {
             }, 3000);
 
             folderChangeInterval.current = setInterval(() => {
-                setSelectedFolder((prevFolder) => {
+                setSelectedFolder((prevFolder: string) => {
                     const currentIndex = folders.indexOf(prevFolder);
                     return folders[(currentIndex + 1) % folders.length];
                 });
@@ -176,20 +166,6 @@ export default function Gallery({ setCurrentTitle }: GalleryProps) {
         if (animationInterval.current) clearInterval(animationInterval.current);
         if (folderChangeInterval.current) clearInterval(folderChangeInterval.current);
     };
-
-    if (loading) {
-        return (
-            <main className="flex flex-col items-center gap-8 md:gap-16">
-                <section className="w-full">
-                    <FancyRectangle colour="purple" offset="8" filled fullWidth>
-                        <div className="flex w-full flex-col gap-4 border-4 border-black bg-white px-4 py-8 text-black md:flex-row md:gap-8 md:p-12">
-                            <h2 className="text-xl">Loading...</h2>
-                        </div>
-                    </FancyRectangle>
-                </section>
-            </main>
-        );
-    }
 
     return (
         <>

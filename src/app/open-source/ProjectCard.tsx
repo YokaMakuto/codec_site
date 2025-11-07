@@ -2,23 +2,28 @@ import Button from '@/components/Button';
 import FancyRectangle from '@/components/FancyRectangle';
 import Tag from '@/components/Tag';
 import type { Project } from '@/data/projects';
-import { env } from '@/env.mjs';
 import Image from 'next/image';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
-const payloadURL = env.NEXT_PUBLIC_PAYLOAD_URI;
-
 export default function ProjectCard({ project }: { project: Project }) {
+    const imageSrc = project.image;
+
     return (
         <FancyRectangle colour="white" offset="8" rounded fullWidth>
             <div className="w-full gap-6 rounded-xl bg-white p-4 text-black">
-                <Image
-                    src={payloadURL + '/api/media/file/' + project.image}
-                    alt={`${project.title}`}
-                    width={450}
-                    height={450}
-                    className="w-full shrink-0 rounded-lg border-[3px] border-black bg-white object-contain"
-                />
+                {imageSrc ? (
+                    <Image
+                        src={imageSrc}
+                        alt={`${project.title}`}
+                        width={450}
+                        height={450}
+                        className="w-full shrink-0 rounded-lg border-[3px] border-black bg-white object-contain"
+                    />
+                ) : (
+                    <div className="flex h-[280px] w-full items-center justify-center rounded-lg border-[3px] border-dashed border-black bg-white text-center text-sm uppercase tracking-wide text-gray-500">
+                        Project image unavailable
+                    </div>
+                )}
                 <div className="mt-4 space-y-2 md:space-y-4">
                     <div className="gap-6">
                         <div className="space-y-2">

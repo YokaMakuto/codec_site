@@ -20,7 +20,11 @@ export default function HeaderClient({ className }: { className?: string }) {
                             <Button colour="purple" href="/join">
                                 Join Us
                             </Button>
-                            <Button colour="orange" href="https://discord.gg/3ryMfNBHTE" targetBlank>
+                            <Button
+                                colour="orange"
+                                href="https://discord.gg/3ryMfNBHTE"
+                                targetBlank
+                            >
                                 Discord
                             </Button>
                         </div>

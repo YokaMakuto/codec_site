@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import Duck from '@/components/Duck';
 import FancyRectangle from '@/components/FancyRectangle';
 import Title from '@/components/Title';
-import { fetchProjectsData } from '@/data/projects';
+import { PROJECTS } from '@/data/projects';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import FutureProjectCard from './FutureProjectCard';
@@ -12,8 +12,8 @@ export const metadata: Metadata = {
     title: 'Open Source',
 };
 
-export default async function OpenSourcePage() {
-    const projects = await fetchProjectsData();
+export default function OpenSourcePage() {
+    const projects = PROJECTS;
 
     // Split projects into active and inactive
     const currentProjects = (projects ?? []).filter((project) => project.active);
@@ -186,17 +186,11 @@ export default async function OpenSourcePage() {
                         <FancyRectangle colour={'yellow'} offset={'12'} filled fullWidth rounded>
                             <div className="w-full border-4 border-black bg-white px-6 py-8 text-lg text-grey md:text-xl">
                                 We follow the{' '}
-                                <a
-                                    href="https://github.com"
-                                    className="font-bold underline"
-                                >
+                                <a href="https://github.com" className="font-bold underline">
                                     CODEC Contributing Guidelines
                                 </a>{' '}
                                 and{' '}
-                                <a
-                                    href="https://github.com"
-                                    className="font-bold underline"
-                                >
+                                <a href="https://github.com" className="font-bold underline">
                                     Code of Conduct
                                 </a>{' '}
                                 to keep collaboration respectful, inclusive, and fun.
@@ -226,23 +220,20 @@ export default async function OpenSourcePage() {
                                 </p>
                                 <p className="mt-2">
                                     Open Source Officers:{' '}
-                                    <a
-                                        href="https://github.com"
-                                        className="font-bold underline"
-                                    >
+                                    <a href="https://github.com" className="font-bold underline">
                                         Someone1
                                     </a>{' '}
                                     &amp;{' '}
-                                    <a
-                                        href="https://github.com"
-                                        className="font-bold underline"
-                                    >
+                                    <a href="https://github.com" className="font-bold underline">
                                         Someone2
                                     </a>
                                 </p>
                                 <p className="mt-4">
                                     Questions or ideas? Email us at{' '}
-                                    <a className="font-bold underline" href="mailto:codec@ensta.edu.dz">
+                                    <a
+                                        className="font-bold underline"
+                                        href="mailto:codec@ensta.edu.dz"
+                                    >
                                         codec@ensta.edu.dz
                                     </a>
                                     .

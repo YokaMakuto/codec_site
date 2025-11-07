@@ -68,9 +68,16 @@ export default async function AboutPage() {
                                 height={30}
                             />
                             <p className="my-4 text-lg md:text-xl">
-                                 CODEC or The Community of Developers and Engineers Club is a university-based community group created for students passionate about technology. It was founded by first-year preparatory computer science students at the National School of Advanced Technologies.
-                                 The Community of Developers and Engineers (CODEC) aims to enhance technical skills while fostering more than just “programming.” It’s about connection, collaborative learning, and personal growth.
-                                 CODEC serves as a learning space for individuals who share a common interest in the field, making the entire learning journey deeply engaging and enriching.
+                                CODEC or The Community of Developers and Engineers Club is a
+                                university-based community group created for students passionate
+                                about technology. It was founded by first-year preparatory computer
+                                science students at the National School of Advanced Technologies.
+                                The Community of Developers and Engineers (CODEC) aims to enhance
+                                technical skills while fostering more than just “programming.” It’s
+                                about connection, collaborative learning, and personal growth. CODEC
+                                serves as a learning space for individuals who share a common
+                                interest in the field, making the entire learning journey deeply
+                                engaging and enriching.
                             </p>
                         </div>
                     </div>
@@ -92,11 +99,17 @@ export default async function AboutPage() {
                                 <ul className="ml-6 list-disc">
                                     <li>
                                         {' '}
-                                        <span className="font-bold text-yellow">Technical Skill Development</span>{' '}
-                                        CODEC helps students strengthen their software development abilities by introducing them to modern technologies.
+                                        <span className="font-bold text-yellow">
+                                            Technical Skill Development
+                                        </span>{' '}
+                                        CODEC helps students strengthen their software development
+                                        abilities by introducing them to modern technologies.
                                     </li>
                                     <li>
-                                        Event Organization: The club hosts workshops, talks, hackathons, coding competitions, and mentorship sessions to provide real-world experience and connect students with the professional world.
+                                        Event Organization: The club hosts workshops, talks,
+                                        hackathons, coding competitions, and mentorship sessions to
+                                        provide real-world experience and connect students with the
+                                        professional world.
                                     </li>
                                     <li>
                                         Educational{' '}
@@ -118,15 +131,19 @@ export default async function AboutPage() {
                                         </span>
                                         ,{' '}
                                         <span className="font-bold text-purple">
-                                           CODEC connects students with industry professionals
+                                            CODEC connects students with industry professionals
                                         </span>
-                                        , and <span className="font-bold text-yellow"> offering networking </span>{' '}
-                                       mentorship , and internship opportunities.
+                                        , and{' '}
+                                        <span className="font-bold text-yellow">
+                                            {' '}
+                                            offering networking{' '}
+                                        </span>{' '}
+                                        mentorship , and internship opportunities.
                                     </li>
                                     <li>
                                         And let&apos;s not forget, a{' '}
-                                        <span className="font-bold text-yellow">party</span>{' '}
-                                        each year to celebrate our studies
+                                        <span className="font-bold text-yellow">party</span> each
+                                        year to celebrate our studies
                                     </li>
                                 </ul>
                             </Paragraph>
@@ -207,8 +224,13 @@ export default async function AboutPage() {
                     />
                     <div className="relative rounded-xl border-2 border-white bg-grey px-4 py-4 md:px-6 md:py-6">
                         <p className="text-lg md:text-xl">
-                            Founded in 2025, Club CODEC is a dynamic and passionate community of students driven by curiosity, collaboration, and innovation in the scientific and technological fields.
-                        Led by President KADRI Taysir Mohammed Lahbib, the club welcomes all those eager to explore, learn, and grow together. Whether you're looking to enhance your technical skills, connect with like-minded peers, or take part in creative projects, CODEC offers the perfect space to do so.
+                            Founded in 2025, Club CODEC is a dynamic and passionate community of
+                            students driven by curiosity, collaboration, and innovation in the
+                            scientific and technological fields. Led by President KADRI Taysir
+                            Mohammed Lahbib, the club welcomes all those eager to explore, learn,
+                            and grow together. Whether you&apos;re looking to enhance your technical
+                            skills, connect with like-minded peers, or take part in creative
+                            projects, CODEC offers the perfect space to do so.
                         </p>
                     </div>
                     <Image
@@ -283,8 +305,11 @@ export default async function AboutPage() {
                                 question={'How do I become a club member?'}
                                 answer={
                                     <p>
-                                        You can register as a club member on our form {' '}
-                                        <a href="https://forms.gle/e6PpAcS9ZrMfHwo16" className="underline">
+                                        You can register as a club member on our form{' '}
+                                        <a
+                                            href="https://forms.gle/e6PpAcS9ZrMfHwo16"
+                                            className="underline"
+                                        >
                                             here
                                         </a>
                                         . Membership is open to all university students.
@@ -310,8 +335,8 @@ export default async function AboutPage() {
                                 question={'How much does membership cost?'}
                                 answer={
                                     <p>
-                                        Club membership costs 0$ for the full year.
-                                        isnt it great to have free things?
+                                        Club membership costs 0$ for the full year. isnt it great to
+                                        have free things?
                                     </p>
                                 }
                                 colour={'purple'}
@@ -320,7 +345,8 @@ export default async function AboutPage() {
                                 question={'Where is our headquarters?'}
                                 answer={
                                     <p>
-                                        The headquarters is located  in the National School of Advanced Technologies, ENSTA Algiers, Algeria.
+                                        The headquarters is located in the National School of
+                                        Advanced Technologies, ENSTA Algiers, Algeria.
                                     </p>
                                 }
                                 colour={'orange'}
@@ -332,7 +358,8 @@ export default async function AboutPage() {
                                         Yes! We have a{' '}
                                         <a
                                             href={
-                                                LINKS.find((link) => link.name === 'Instagram')?.link
+                                                LINKS.find((link) => link.name === 'Instagram')
+                                                    ?.link
                                             }
                                             target="_blank"
                                             rel="noopener noreferrer"

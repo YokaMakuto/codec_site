@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import React, { useMemo } from 'react';
 import type { Photo } from './types';
 
@@ -9,7 +10,7 @@ interface GalleryCardProps {
 }
 
 export default function GalleryCard({ folder, images, onSelectFolder }: GalleryCardProps) {
-    const pile = useMemo(() => {
+    const pile = useMemo<Photo[]>(() => {
         return images
             .filter((photo) => photo.orientation === 'landscape')
             .sort(() => 0.5 - Math.random())
@@ -64,11 +65,14 @@ export default function GalleryCard({ folder, images, onSelectFolder }: GalleryC
                                 : 'h-[18em] w-[24em] border-l-[2em] border-r-[5.5em]'
                         } border-[1em] bg-white bg-cover bg-center shadow-lg brightness-[1.2] contrast-[.9] saturate-[.9] sepia-[.2]`}
                     >
-                        <img
+                        <Image
                             src={photo.url}
-                            className="h-full w-full object-cover"
+                            alt={`${photo.eventName} photo`}
+                            fill
+                            className="object-cover"
                             draggable={false}
                             loading="lazy"
+                            sizes="(max-width: 768px) 280px, 352px"
                         />
                     </motion.div>
                 ))}
