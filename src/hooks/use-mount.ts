@@ -13,5 +13,5 @@ export const useMount = (fn: React.EffectCallback) => {
         const cleanup = fnRef.current();
         hasRunRef.current = true;
         return cleanup;
-    }, []);
+    }, [fn]);
 };
