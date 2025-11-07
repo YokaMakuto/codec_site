@@ -12,7 +12,7 @@ const STATIC_COMMITTEE_MEMBERS: CommitteeMember[] = [
     { name: 'KADRI Taysir Mohammed Lahbib', position: 'President', exec: true },
     { name: 'DJABER Allae', position: 'Vice President', exec: true },
     { name: 'OULEDDRISS abdelmonaim', position: 'Treasurer', exec: true },
-    { name: 'Alice Williams', position: 'Human Resources Manager', exec: true },
+    { name: 'LAMMAR mohamed aissam', position: 'Design Manager', exec: true },
     { name: 'BOUDISSA Farouk Redhouan', position: 'Social Media Manager', exec: false },
     { name: 'HADJ Soundous', position: 'Events Manager', exec: false },
     { name: 'ARIAN Djad', position: 'Development Manager', exec: false },
