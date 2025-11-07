@@ -1,0 +1,38 @@
+name: Development - Pull Request
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint-format:
+    name: Linting and Formatting Checks
+    uses: ./.github/workflows/lint-and-format.yml
+
+  build:
+    needs: lint-format
+    name: Build
+    runs-on: ubuntu-latest
+    environment: Development
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Build Docker container
+        env:
+          NEXT_PUBLIC_KEYCLOAK_REDIRECT_URI: ${{ secrets.NEXT_PUBLIC_KEYCLOAK_REDIRECT_URI }}
+          NEXT_PUBLIC_AUTH_REALM: ${{ secrets.NEXT_PUBLIC_AUTH_REALM }}
+          NEXT_PUBLIC_CONTAINER_KEYCLOAK_ENDPOINT: ${{ secrets.NEXT_PUBLIC_CONTAINER_KEYCLOAK_ENDPOINT }}
+          NEXT_PUBLIC_LOCAL_KEYCLOAK_URL: ${{ secrets.NEXT_PUBLIC_LOCAL_KEYCLOAK_URL }}
+          NEXT_PUBLIC_DRIVE_LINK: ${{ secrets.NEXT_PUBLIC_DRIVE_LINK }}
+          NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${{ secrets.NEXT_PUBLIC_UMAMI_WEBSITE_ID }}
+          NEXT_PUBLIC_PAYLOAD_URI: ${{ secrets.NEXT_PUBLIC_PAYLOAD_URI }}
+        run: |
+          docker buildx build \
+            --secret id=NEXT_PUBLIC_KEYCLOAK_REDIRECT_URI \
+            --secret id=NEXT_PUBLIC_DRIVE_LINK \
+            --secret id=NEXT_PUBLIC_UMAMI_WEBSITE_ID \
+            --secret id=NEXT_PUBLIC_PAYLOAD_URI \
+            --file=Dockerfile -t csclub-website .
